@@ -73,14 +73,6 @@ Optional flags:
 
 ---
 
-## 📈 Example Output
-
-![Example](outputs/sample_output.jpg)
-
-> Detected hairline region with calculated hair coverage overlay
-
----
-
 ## ✍️ Author
 
 **Nazil Sheikh**  
