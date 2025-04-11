@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hair Analysis Tools</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <header class="text-center py-16 bg-gradient-to-r from-purple-500 to-indigo-600 text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-30" style="background-image: url('{{ url_for('static', filename='images/testi-bg.jpg') }}');"></div>
+        <div class="relative z-10">
+            <h1 class="text-5xl font-extrabold leading-tight tracking-wide">Hair Analysis Tool</h1>
+        </div>
+    </header>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .background-slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            animation: slide 8s infinite;
+        }
+        
+        @keyframes slide {
+            0% { background-image: url("{{ url_for('static', filename='images/call-bg.jpg') }}"); }
+            25% { background-image: url("{{ url_for('static', filename='images/video-bg.jpg') }}"); }
+            50% { background-image: url("{{ url_for('static', filename='images/testi-bg.jpg') }}"); }
+            75% { background-image: url("{{ url_for('static', filename='images/signup-bg.jpg') }}"); }
+            100% { background-image: url("{{ url_for('static', filename='images/call-bg.jpg') }}"); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="background-slider"></div>
+    
+    <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-6 p-6">
+        <div class="bg-white p-6 shadow-lg rounded-lg">
+            <h2 class="text-2xl font-semibold text-gray-700">Hair Density </h2>
+            <p class="mt-4">Identify hair density levels and receive actionable insights for improvement.</p>
+            <button id="hair-heatmap" class="mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full text-white text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105">
+                Check Hair Density
+            </button>
+        </div>
+        <div class="bg-white p-6 shadow-lg rounded-lg">
+            <h2 class="text-2xl font-semibold text-gray-700">Hair Thickness Detection</h2>
+            <p class="mt-4">Analyze individual strands for thickness.
+                Note please upload trichoscopic image only
+            </p>
+            <button id="hair-strand-btn" class="mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full text-white text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105">
+              Go to Hair Strand Detection
+            </button>
+        <!-- </div>
+        <div class="bg-white p-6 shadow-lg rounded-lg">
+            <h2 class="text-2xl font-semibold text-gray-700">Hair Coverage</h2>
+            <p class="mt-4">Analyze your hair coverage and receive personalized treatment recommendations..</p>
+            <button id="hair-cvg-btn" class="mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full text-white text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105">
+                Check Hair Coverage
+            </button>
+        </div> -->
+    </main>
+    
+    <footer class="text-center mt-12">
+        <p class="text-gray-500">&copy; 2025 Hair Analysis Tool. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('hair-heatmap').addEventListener('click', function() {
+            // Redirect to the Check Hair Loss page
+            location.assign("/check_hair_loss");  // Navigate to the 'Check Hair Loss' route
+        });
+    
+        document.getElementById('hair-strand-btn').addEventListener('click', function() {
+            // Redirect to the Hair Strand Detection page
+            location.assign("/upload_image");  // Navigate to the 'upload_image' route
+        });
+    
+        // document.getElementById('hair-cvg-btn').addEventListener('click', function() {
+        // location.assign("/hair_cvg_estimation");   // Navigate to the 'Hair Age Estimation' route
+        // });
+    </script>
+</body>
+</html>
+
+

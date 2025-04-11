@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <header class="text-center py-16 bg-gradient-to-r from-purple-500 to-indigo-600 text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-30" style="background-image: url('{{ url_for('static', filename='images/testi-bg.jpg') }}');"></div>
+        <div class="relative z-10">
+            <h1 class="text-5xl font-extrabold leading-tight tracking-wide">Hair Coverage Analysis</h1>
+        </div>
+    </header>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .background-slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            animation: slide 8s infinite;
+        }
+        @keyframes slide {
+            0% { background-image: url("{{ url_for('static', filename='images/call-bg.jpg') }}"); }
+            25% { background-image: url("{{ url_for('static', filename='images/video-bg.jpg') }}"); }
+            50% { background-image: url("{{ url_for('static', filename='images/testi-bg.jpg') }}"); }
+            75% { background-image: url("{{ url_for('static', filename='images/signup-bg.jpg') }}"); }
+            100% { background-image: url("{{ url_for('static', filename='images/call-bg.jpg') }}"); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="background-slider"></div>
+    <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+        <h2 class="text-3xl font-semibold text-gray-700 text-center">Check Hair Coverage</h2>
+        <div class="mt-8">
+            <p class="text-lg text-gray-600">Upload an image to analyze the hair coverage percentage and view the processed image.</p>
+            <form id="upload-form" enctype="multipart/form-data" action="/hair-coverage" method="POST" >
+                <div class="text-center mt-6">
+                    <input type="file" id="image_file" name="image_file" class="px-6 py-3 bg-blue-600 text-white rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105">
+                </div>
+                <div class="text-center mt-6">
+                    <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105">
+                        Submit Image
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div id="results" class="mt-5 hidden">
+            <h2 class="text-lg font-semibold mb-3">Hair Coverage Result</h2>
+            <p><strong>Hair Coverage:</strong> <span id="coverage"></span>%</p>
+            <h3 class="mt-5 font-semibold">Hair Coverage Image</h3>
+            <img id="hair-coverage" class="mb-4" src="" alt="Hair Coverage Mask" />
+        </div>
+    </div>
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    const response = await fetch('/hair-coverage', { method: 'POST', body: formData });
+    const data = await response.json();
+    if (data.error) {
+        alert(data.error);
+    } else {
+        document.getElementById('coverage').textContent = data.hair_coverage;
+        document.getElementById('hair-coverage').src = 'data:image/jpeg;base64,' + data.output_images.hair_coverage_mask;
+        document.getElementById('results').classList.remove('hidden');
+    }
+});
+    </script>
+</body>
+</html>
